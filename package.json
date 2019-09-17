@@ -4,7 +4,7 @@
   "description": "Everwhimsical",
   "main": "index.js",
   "scripts": {
-    "build": "install",
+    "build": "node server.js",
     "production": "now && now alias"
   },
   "author": "Bharath",

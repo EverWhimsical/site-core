@@ -1,0 +1,12 @@
+{
+  "name": "Everwhimsical",
+  "version": "1.0.0",
+  "description": "Everwhimsical",
+  "main": "index.js",
+  "scripts": {
+    "build": "install",
+    "production": "now && now alias"
+  },
+  "author": "Bharath",
+  "license": "ISC"
+}

@@ -1,12 +1,7 @@
 {
-  "name": "Everwhimsical",
+  "name": "everwhimsical",
   "version": "1.0.0",
   "description": "Everwhimsical",
-  "main": "index.js",
-  "scripts": {
-    "build": "node server.js",
-    "production": "now && now alias"
-  },
   "author": "Bharath",
   "license": "ISC"
 }

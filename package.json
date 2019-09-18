@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Everwhimsical",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "build": "node server.js",
+    "dev": "npm install",
+    "build": "npm run dev --out public",
     "production": "now && now alias"
   },
   "author": "Bharath",

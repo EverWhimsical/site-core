@@ -1,7 +1,7 @@
 {
   "name": "bharath-blog",
   "version": "1.0.0",
-  "description": "Just read!",
+  "description": "Just read the blog!",
   "repository": {
     "type": "git",
     "url": "git@github.com:EverWhimsical/site-core.git"

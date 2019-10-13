@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { pageWrapperTopMargin } from '@greatgatsbyjs/gatsby-theme-ggt-material-ui-blog/src/constants/styles';
 
 import Header from '@greatgatsbyjs/gatsby-theme-ggt-material-ui-blog/src/components/Navigation/Header';
+import Footer from '@greatgatsbyjs/gatsby-theme-ggt-material-ui-blog/src/components/Navigation/Footer';
 import { withStyles } from '@material-ui/core';
 
 const styles = theme => ({
@@ -38,6 +39,7 @@ const Navigation = ({ classes, children }) => {
     <>
       <Header />
       <main className={`${classes.content} ${classes.gradient}`}>{children}</main>
+      <Footer />
     </>
   );
 };

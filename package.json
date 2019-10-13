@@ -1,0 +1,26 @@
+{
+  "name": "bharath-blog",
+  "version": "1.0",
+  "description": "Just read!",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:EverWhimsical/site-core.git"
+  },
+  "main": "gatsby-config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bharath",
+    "jbehave",
+    "appium"
+  ],
+  "author": "Bharath",
+  "license": "ISC",
+  "dependencies": {
+    "@greatgatsbyjs/gatsby-theme-ggt-material-ui-blog": "^1.1.5",
+    "gatsby": "^2.13.50",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

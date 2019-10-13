@@ -1,6 +1,6 @@
 {
   "name": "bharath-blog",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Just read!",
   "repository": {
     "type": "git",
@@ -8,6 +8,7 @@
   },
   "main": "gatsby-config.js",
   "scripts": {
+    "build": "gatsby build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
         <div className="mb-8 text-xs text-gray-500 dark:text-gray-400">
           <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">
-            Shoutout to Tailwind Nextjs Theme
+            Tailwind Nextjs Theme
           </Link>
         </div>
       </div>

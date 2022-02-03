@@ -13,11 +13,15 @@ tags:
 
 We have been waiting for Selenium 4 release whilst using Selenium 3.x for a long time.
 Now that Selenium 4 is released, let's look at key changes.
-Official [Upgrade Document](https://www.selenium.dev/documentation/webdriver/getting_started/upgrade_to_selenium_4/) captures the essentials and I did not face major challenges in it.
+Official [Upgrade Document](https://www.selenium.dev/documentation/webdriver/getting_started/upgrade_to_selenium_4/) captures the essentials and I did not face any challenge during the change.
 
 - W3C WebDriver standard capabilities
 - Consolidation of FindElement methods
 - TimeUnit to Duration in Java
+
+There is a huge enhancement to [Selenium Grid](https://www.selenium.dev/documentation/grid/) in terms of Architecture and stability which we will cover in another blog.
+
+We will check on BiDi API and DevTools.
 
 ## BiDi API
 
@@ -28,9 +32,9 @@ Selenium has introduced mechanisms for user to perform advanced browser actions.
 We can handle basic auth of website easily using [HasAuthentication](https://www.selenium.dev/documentation/webdriver/bidirectional/bidi_api/#register-basic-auth)
 
 ```java
-    Predicate<URI> uriPredicate = uri -> uri.getHost().contains("your-domain.com");
-    ((HasAuthentication) driver).register(uriPredicate, UsernameAndPassword.of("admin", "password"));
-    driver.get("https://your-domain.com/login");
+Predicate<URI> uriPredicate = uri -> uri.getHost().contains("your-domain.com");
+((HasAuthentication) driver).register(uriPredicate, UsernameAndPassword.of("admin", "password"));
+driver.get("https://your-domain.com/login");
 ```
 
 After this, user does not have to append user name and password to the URL for basic auth resulting in password leaks.
@@ -40,15 +44,15 @@ After this, user does not have to append user name and password to the URL for b
 When there are DOM changes, we can now listen and interact on it. This is particularly helpful in validation and page load conditions.
 
 ```java
-    AtomicReference<DomMutationEvent> seen = new AtomicReference<>();
-    CountDownLatch latch = new CountDownLatch(1);
-    EventType<Void> domMutation = domMutation(mutation -> {
-      String id = mutation.getElement().getAttribute("id");
-      if ("spchl".equals(id)) {
+AtomicReference<DomMutationEvent> seen = new AtomicReference<>();
+CountDownLatch latch = new CountDownLatch(1);
+EventType<Void> domMutation = domMutation(mutation -> {
+    String id = mutation.getElement().getAttribute("id");
+    if ("spchl".equals(id)) {
         seen.set(mutation);
         latch.countDown();
-      }
-    });
+    }
+});
 ```
 
 With a `DomMutationEvent`, we can fetch the element and operate on it. Though there may be multiple dom changes, we can search and filter as required.
@@ -61,11 +65,11 @@ Earlier, we had to create a proxy server (BrowserMob Proxy) and route Selenium c
 With `NetworkInterceptor`, we can tweak the application response and test various functional flows easily.
 
 ```java
-    Routable routable = Route.matching(req -> req.getUri().contains("/main/home.jsp"))
-        .to(() -> req -> new HttpResponse()
-            .setStatus(200)
-            .addHeader("Content-Type", MediaType.HTML_UTF_8.toString())
-            .setContent(utf8String("Creamy, delicious cheese!")));
+Routable routable = Route.matching(req -> req.getUri().contains("/main/home.jsp"))
+    .to(() -> req -> new HttpResponse()
+        .setStatus(200)
+        .addHeader("Content-Type", MediaType.HTML_UTF_8.toString())
+        .setContent(utf8String("Creamy, delicious cheese!")));
 ```
 
 - A step is considered duplicate if the annotation and step name is present more than once.
@@ -80,20 +84,20 @@ Selenium 4 provides direct access to the Chrome DevTools Protocol (CDP), but we 
 Using [DevTools](https://www.selenium.dev/documentation/webdriver/bidirectional/bidi_api/#collect-performance-metrics), we can collect performance metrics during the execution and use it for validation.
 
 ```java
-    WebDriver driver = new ChromeDriver();
-    driver = new Augmenter().augment(driver);
-    DevTools devTools = ((HasDevTools) driver).getDevTools();
-    devTools.createSession();
+WebDriver driver = new ChromeDriver();
+driver = new Augmenter().augment(driver);
+DevTools devTools = ((HasDevTools) driver).getDevTools();
+devTools.createSession();
 
-    devTools.send(Performance.enable(Optional.empty()));
-    List<Metric> metricList = devTools.send(Performance.getMetrics());
+devTools.send(Performance.enable(Optional.empty()));
+List<Metric> metricList = devTools.send(Performance.getMetrics());
 
-    driver.get("https://google.com");
-    driver.quit();
+driver.get("https://google.com");
+driver.quit();
 
-    for (Metric m : metricList) {
-      System.out.println(m.getName() + " = " + m.getValue());
-    }
+for (Metric m : metricList) {
+    System.out.println(m.getName() + " = " + m.getValue());
+}
 ```
 
 If a certain metric value is beyond threshold value, the test can be failed.
@@ -105,21 +109,21 @@ We can also emulate Network conditions to better test the application.
 _Note: This feature involves Chrome's Emulation feature specific to browser version_
 
 ```java
-    WebDriver driver = new ChromeDriver();
-    driver = new Augmenter().augment(driver);
-    DevTools devTools = ((HasDevTools) driver).getDevTools();
-    devTools.createSession();
+WebDriver driver = new ChromeDriver();
+driver = new Augmenter().augment(driver);
+DevTools devTools = ((HasDevTools) driver).getDevTools();
+devTools.createSession();
 
-    devTools.send(Network.enable(Optional.of(1000000), Optional.empty(), Optional.empty()));
-        devTools.send(
-            emulateNetworkConditions(false, 100, 200000, 100000,
-                Optional.of(ConnectionType.CELLULAR4G)));
-    long startTime = System.currentTimeMillis();
-    driver.navigate().to("https://www.google.com");
+devTools.send(Network.enable(Optional.of(1000000), Optional.empty(), Optional.empty()));
+    devTools.send(
+        emulateNetworkConditions(false, 100, 200000, 100000,
+            Optional.of(ConnectionType.CELLULAR4G)));
+long startTime = System.currentTimeMillis();
+driver.navigate().to("https://www.google.com");
 
-    long endTime = System.currentTimeMillis();
+long endTime = System.currentTimeMillis();
 
-    System.out.println("Load time is " + (endTime - startTime));
+System.out.println("Load time is " + (endTime - startTime));
 ```
 
 ### GeoLocation
@@ -129,13 +133,13 @@ We can tweak the user's geolocation via DevTools [GeoLocation](https://www.selen
 _Note: This feature involves Chrome's Emulation feature specific to browser version_
 
 ```java
-    WebDriver driver = new ChromeDriver();
-    driver.navigate().to("https://the-internet.herokuapp.com/");
-    driver = new Augmenter().augment(driver);
-    DevTools devTools = ((HasDevTools) driver).getDevTools();
-    devTools.createSession();
-    devTools.send(Emulation.setGeolocationOverride(Optional.of(52.5043),
-        Optional.of(13.4501),
-        Optional.of(1)));
-    driver.get("https://my-location.org/");
+WebDriver driver = new ChromeDriver();
+driver.navigate().to("https://the-internet.herokuapp.com/");
+driver = new Augmenter().augment(driver);
+DevTools devTools = ((HasDevTools) driver).getDevTools();
+devTools.createSession();
+devTools.send(Emulation.setGeolocationOverride(Optional.of(52.5043),
+    Optional.of(13.4501),
+    Optional.of(1)));
+driver.get("https://my-location.org/");
 ```

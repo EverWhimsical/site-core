@@ -1,6 +1,6 @@
 ---
 name: Bharath
-avatar: /static/images/avatar.png
+avatar: /static/images/mandala.png
 occupation: Test Architect
 company:
 email:

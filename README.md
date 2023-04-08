@@ -9,3 +9,4 @@ Files to check during upstream update
 - [data/authors/default.md](data/authors/default.md)
 - [data/blog/](data/blog/)
 - [public/](public/)
+- [.github/](.github/)
